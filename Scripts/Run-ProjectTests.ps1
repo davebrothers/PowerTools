@@ -4,9 +4,13 @@ function Run-ProjectTests() {
         [switch]$openInBrowser
     )
     #Is Chutzpah installed?
+    $chutzpah
     Write-Host "Locating Chutzpah..."
-    if (-!(Test-Path ($chutzpah = gci -Recurse "chutzpah.console.exe"))) {
-        Write-Host "Cannot find Chutzpah in solution packages. Have you installed the nuget package?"
+    try {
+        Test-Path ($chutzpah = gci -Recurse "chutzpah.console.exe") 
+    } catch {
+        Write-Host -ForegroundColor Red "Cannot find Chutzpah in solution packages. Have you installed the nuget package?"
+        return;
     }
     Write-Host "OK!" -ForegroundColor Green
 
