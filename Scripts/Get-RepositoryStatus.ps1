@@ -1,3 +1,3 @@
 ﻿function Get-RepositoryStatus {
-    ls . -Attributes Directory,Directory+Hidden -ErrorAction SilentlyContinue -Include ".git" -Recurse | % { Write-Host "$($_.parent.Name):"; pushd $($_.parent.FullName); $git_status = "$(git status)".ToLower(); if ($git_status.Contains("up-to-date") -and -not $git_status.Contains("changes to be committed") -and -not $git_status.Contains("changes not staged")) {"OK"} else {"DIRTY"} ; popd; Write-Host "" }
+    ls . -Attributes Directory, Directory+Hidden -ErrorAction SilentlyContinue -Include ".git" -Recurse | % { Write-Host "$($_.parent.Name):"; pushd $($_.parent.FullName); $git_status = "$(git status)".ToLower(); if ($git_status.Contains("up-to-date") -and -not $git_status.Contains("changes to be committed") -and -not $git_status.Contains("changes not staged")) {"OK"} else {"DIRTY"} ; popd; Write-Host "" }
 }
