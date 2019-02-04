@@ -19,7 +19,7 @@ Function Find-File {
 Export-ModuleMember -Function "Find-File"
 
 Function Get-Directories {
-    Get-ChildItem | Where-Item {$_.PSIsContainer}
+    Get-ChildItem | Where-Object {$_.PSIsContainer}
 }
 Export-ModuleMember -Function "Get-Directories"
 
