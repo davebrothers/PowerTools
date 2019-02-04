@@ -8,12 +8,7 @@
 #     Out-Null ` 
 # }
 
-try{
-Import-Module "C:\Users\$($env:username)\Documents\WindowsPowerShell\Modules\toolbox.davebrothers.psm1"
-} catch {
-    Write-Host $_
-    return
-}
+Import-Module davebrothers.toolbox
 
 function prompt {
     $realLASTEXITCODE = $LASTEXITCODE
