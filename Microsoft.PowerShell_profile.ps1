@@ -20,22 +20,6 @@ function prompt {
     return "> "
 }
 
-# Custom Functions
-function Get-Directories {
-    ls | ? {$_.PSIsContainer}
-}
-
-function Find-File {
-    param([string]$searchTerm,
-        [switch]$Recurse)
-    
-    if ($Recurse) {
-        return (gci -Recurse -Filter *$searchTerm* -File | Format-Wide )
-    }
-
-    return (gci -Filter *$searchTerm* -File | Format-Wide )
-}
-
 # Custom Aliases
 #New-Alias nucon "C:\Program Files (x86)\NUnit.org\nunit-console\nunit3-console.exe"
 New-Alias npp 'C:\Program Files (x86)\Notepad++\Notepad++.exe'
