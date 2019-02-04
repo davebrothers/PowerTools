@@ -9,22 +9,19 @@
 # }
 
 Import-Module davebrothers.toolbox
+Import-Module Posh-Git
 
 function prompt {
     $realLASTEXITCODE = $LASTEXITCODE
     #$($env:username)@$($env:computername): 
     Write-Host "$(Split-Path -leaf -path (Get-Location))" -nonewline
-
     Write-VcsStatus
     $global:LASTEXITCODE = $realLASTEXITCODE
     return "> "
 }
 
-# modules
-Import-Module posh-git
-
 # Custom Functions
-function List-Directories {
+function Get-Directories {
     ls | ? {$_.PSIsContainer}
 }
 
@@ -42,5 +39,5 @@ function Find-File {
 # Custom Aliases
 #New-Alias nucon "C:\Program Files (x86)\NUnit.org\nunit-console\nunit3-console.exe"
 New-Alias npp 'C:\Program Files (x86)\Notepad++\Notepad++.exe'
-New-Alias ld List-Directories
+New-Alias ld Get-Directories
 New-Alias trunc Clear-Content
