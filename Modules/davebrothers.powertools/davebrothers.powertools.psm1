@@ -43,7 +43,7 @@ Function Out-HasByteOrderMark {
 }
 Export-ModuleMember -Function "Out-HasByteOrderMark"
 
-Function Select-PackageVersion {
+Function Select-NpmPackageVersion {
   param(
     [Parameter(Mandatory = $false)]
     [string]$Path = ""
