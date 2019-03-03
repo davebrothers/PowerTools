@@ -1,3 +1,0 @@
-[submodule "Modules/Get-ChildItemColor"]
-	path = Modules/Get-ChildItemColor
-	url = git@github.com:davebrothers/Get-ChildItemColor.git
