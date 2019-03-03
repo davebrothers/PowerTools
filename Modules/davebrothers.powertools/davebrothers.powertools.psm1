@@ -29,7 +29,7 @@ Function Find-Content {
 Export-ModuleMember -Function "Find-Content"
 
 Function Get-Directories {
-  Get-ChildItem | Where-Object {$_.PSIsContainer}
+  Get-ChildItemColorFormatWide -Attributes D
 }
 Export-ModuleMember -Function "Get-Directories"
 
