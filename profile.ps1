@@ -4,8 +4,7 @@
 
 $modulesToLoad = @(
   "davebrothers.powertools",
-  "Posh-Git",
-  "Get-ChildItemColor"
+  "Posh-Git"
 )
 
 $modulesToLoad | ForEach-Object {

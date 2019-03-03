@@ -11,10 +11,10 @@ Function Find-File {
   )
     
   if ($Recurse) {
-    return (Get-ChildItem -Recurse -Filter *$Filter* -File | Format-Wide )
+    return (Get-ChildItem -Recurse -Filter *$Filter* -File)
   }
 
-  return (Get-ChildItem -Filter *$Filter* -File | Format-Wide )
+  return (Get-ChildItem -Filter *$Filter* -File)
 }
 Export-ModuleMember -Function "Find-File"
 
@@ -29,7 +29,7 @@ Function Find-Content {
 Export-ModuleMember -Function "Find-Content"
 
 Function Get-Directories {
-  Get-ChildItemColorFormatWide -Attributes D
+  return Get-ChildItem -Attributes D
 }
 Export-ModuleMember -Function "Get-Directories"
 
