@@ -42,5 +42,5 @@ New-Alias trunc Clear-Content
 
 if (Get-Module Get-ChildItemColor) {
   Set-Alias ls Get-ChildItemColorFormatWide -Option AllScope
-  Set-Alias dir Get-ChildItemColor -Option AllScope
+  Set-Alias ll Get-ChildItemColor -Option AllScope
 }
