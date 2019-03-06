@@ -43,20 +43,6 @@ Function Out-HasByteOrderMark {
 }
 Export-ModuleMember -Function "Out-HasByteOrderMark"
 
-Function Select-NpmPackageVersion {
-  param(
-    [Parameter(Mandatory = $false)]
-    [string]$Path = ""
-  )
-
-  if ([String]::IsNullOrEmpty($Path)) {
-    return (Get-Content .\package.json | ConvertFrom-Json).version
-  }
-
-  return (Get-Content $Path | ConvertFrom-Json).version
-}
-Export-ModuleMember Select-NpmPackageVersion
-
 ####################################
 #           CHOCOLATEY
 ####################################

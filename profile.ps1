@@ -7,8 +7,6 @@ $env:Path += ";$scriptHome"
 
 ###################
 # Install Modules
-###################
-
 $modulesToLoad = @(
   "davebrothers.powertools",
   "Posh-Git"
@@ -44,6 +42,7 @@ Function prompt {
 # Custom Aliases
 New-Alias npp 'C:\Program Files (x86)\Notepad++\Notepad++.exe'
 New-Alias ld Get-Directories
+<<<<<<< HEAD
 New-Alias trunc Clear-Content
 New-Alias npv Select-NpmPackageVersion
 Function .. { Set-Location .. }
@@ -52,3 +51,6 @@ if (Get-Module Get-ChildItemColor) {
   Set-Alias ls Get-ChildItemColorFormatWide -Option AllScope
   Set-Alias ll Get-ChildItemColor -Option AllScope
 }
+=======
+New-Alias trunc Clear-Content
+>>>>>>> 5bae6b6ab4b026e4017b81e0b8da65fc9c8b4fc2
