@@ -1,6 +1,24 @@
+<#
+.SYNOPSIS
+Sets preferences for tslint.json as used by Angular.
+
+.DESCRIPTION
+Last updated for Angular CLI 7.3.4
+
+.PARAMETER Path
+(Optional) The full path to the tslint.json file. Defaults to current directory.
+
+.PARAMETER Prefix
+(Optional) If provided, enforces prefix-associated rules for components and directives.
+
+.EXAMPLE
+Set-TslintPreferences -Path C:\git\repo\app\tslint.json -Path foo
+#>
 param (
   [Parameter(Mandatory = $false)]
-  [string]$Path = "$(Join-Path $(Get-Location) tslint.json)"
+  [string]$Path = "$(Join-Path $(Get-Location) tslint.json)",
+  [Parameter(Mandatory = $false)]
+  [string]$Prefix = ""
 )
 
 if ((Split-Path $Path -Leaf).ToLower() -ne "tslint.json") {
@@ -15,5 +33,18 @@ $tslintConfig = Get-Content $Path -Raw | ConvertFrom-Json
 
 # Use double quotes
 $tslintConfig.rules.quotemark = @($true, "double")
+
+# Prefer const declarations
+$tslintConfig.rules."prefer-const" = $true
+
+# Enforce prefix if provided
+if (![string]::IsNullOrEmpty($Prefix)) {
+  if (!($tslintConfig.rules."directive-selector" -contains $Prefix)) {
+    $tslintConfig.rules."directive-selector" = @($true, "attriubute", "$Prefix", "camelCase")
+  }
+  if (!($tslintConfig.rules."component-selector" -contains $Prefix)) {
+    $tslintConfig.rules."component-selector" = @($true, "element", "$Prefix", "kebab-case")
+  }
+}
 
 $tslintConfig | ConvertTo-Json -Depth 10 | Set-Content $Path -Encoding Ascii

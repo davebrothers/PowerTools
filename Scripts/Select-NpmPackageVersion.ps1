@@ -11,4 +11,4 @@ if (!(Test-Path $Path)) {
   throw New-Object System.ArgumentException("File not found: $Path")
 }
 
-return (Get-Content $Path | ConvertFrom-Json).version
+return (Get-Content $Path -Raw | ConvertFrom-Json ).version
