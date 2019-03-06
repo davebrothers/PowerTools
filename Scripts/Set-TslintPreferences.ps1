@@ -11,7 +11,7 @@ if (!(Test-Path $Path)) {
   throw New-Object System.ArgumentException("File not found: $Path")
 }
 
-$tslintConfig = Get-Content $Path | ConvertFrom-Json
+$tslintConfig = Get-Content $Path -Raw | ConvertFrom-Json
 
 # Use double quotes
 $tslintConfig.rules.quotemark = @($true, "double")
