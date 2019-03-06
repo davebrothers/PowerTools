@@ -55,7 +55,7 @@ Function Select-NpmPackageVersion {
 
   return (Get-Content $Path | ConvertFrom-Json).version
 }
-Export-ModuleMember Select-PackageVersion
+Export-ModuleMember Select-NpmPackageVersion
 
 ####################################
 #           CHOCOLATEY
@@ -123,6 +123,7 @@ Function Add-Gitignore {
     Write-Host -NoNewLine -ForegroundColor Magenta "Visual Studio" 
     Write-Host "-flavored .gitignore."
     $wc = New-Object System.Net.WebClient
+    $wc.Encoding = [System.Text.Encoding]::UTF8
     Try {
       $wc.DownloadString("https://raw.githubusercontent.com/github/gitignore/master/VisualStudio.gitignore") | New-Item -Name ".gitignore"
     }

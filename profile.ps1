@@ -1,3 +1,10 @@
+################
+# Path scripts
+################
+
+$scriptHome = "$(Split-Path $profile)\Scripts"
+$env:Path += ";$scriptHome"
+
 ###################
 # Install Modules
 ###################
@@ -38,6 +45,8 @@ Function prompt {
 New-Alias npp 'C:\Program Files (x86)\Notepad++\Notepad++.exe'
 New-Alias ld Get-Directories
 New-Alias trunc Clear-Content
+New-Alias npv Select-NpmPackageVersion
+Function .. { Set-Location .. }
 
 if (Get-Module Get-ChildItemColor) {
   Set-Alias ls Get-ChildItemColorFormatWide -Option AllScope
