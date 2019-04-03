@@ -12,7 +12,7 @@ Last updated for Angular CLI 7.3.4
 (Optional) If provided, enforces prefix-associated rules for components and directives.
 
 .EXAMPLE
-Set-TslintPreferences -Path C:\git\repo\app\tslint.json -Path foo
+Set-TslintPreferences -Path C:\git\repo\app\tslint.json
 #>
 param (
   [Parameter(Mandatory = $false)]
@@ -33,6 +33,9 @@ $tslintConfig = Get-Content $Path -Raw | ConvertFrom-Json
 
 # Use double quotes
 $tslintConfig.rules.quotemark = @($true, "double")
+
+# Configure disallowed console methods; includes non-standard APIs and swaps allowances of log/info
+$tslintConfig.rules."no-console" = @($true, "debug", "exception", "log", "profile", "profileEnd", "timeStamp", "trace")
 
 # Prefer const declarations
 $tslintConfig.rules."prefer-const" = $true

@@ -44,6 +44,7 @@ New-Alias npp 'C:\Program Files (x86)\Notepad++\Notepad++.exe'
 New-Alias ld Get-Directories
 New-Alias trunc Clear-Content
 New-Alias npv Select-NpmPackageVersion
+Set-Alias rd Remove-Directory -Option AllScope
 Function .. { Set-Location .. }
 
 if (Get-Module Get-ChildItemColor) {
