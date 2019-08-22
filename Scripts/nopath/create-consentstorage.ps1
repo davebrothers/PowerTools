@@ -97,7 +97,8 @@ $AzStorageContext = New-AzStorageContext -StorageAccountName $StorageAccountName
 
 # Create the Storage Container
 New-AzStorageContainer -Name $ContainerName `
-  -Context $AzStorageContext
+  -Context $AzStorageContext `
+  -Permission Blob
 
 # Verify creation of Storage Container
 try {
