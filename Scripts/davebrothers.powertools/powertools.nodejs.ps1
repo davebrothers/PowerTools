@@ -1,3 +1,7 @@
+
+$userNode = "$(Join-Path $env:APPDATA npm)"
+[Environment]::SetEnvironmentVariable('PATH', "$userNode;" + [Environment]::GetEnvironmentVariable('PATH'))
+
 Function Select-NpmPackageVersion {
   param(
     [Parameter(Mandatory = $false)]
