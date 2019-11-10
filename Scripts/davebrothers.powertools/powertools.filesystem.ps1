@@ -67,34 +67,33 @@ function Remove-Directory {
   $ResolvedPath = Resolve-Path $Path -ErrorAction Stop
 
   Get-ChildItem $ResolvedPath -Recurse -Force |
-    Where-Object { -not $_.PSIsContainer } | 
-    Remove-Item -Force
+  Where-Object { -not $_.PSIsContainer } | 
+  Remove-Item -Force
 
   Remove-Item -Recurse -Force $ResolvedPath
 
   return
 }
 
-function Test-BOM {
+filter Test-BOM {
   <#
 .SYNOPSIS
 Tests files in the pipeline for BOM.
 
 .EXAMPLE
-gci | Test-BOM
-
-Mode                LastWriteTime         Length Name
-----                -------------         ------ ----
--a----        10/21/2019  9:54 AM              3 only-i-have-bom
+> gci | Test-BOM
+[ False ] C:\folder\foo.txt
+[ True ] C:\folder\bar.md
+[ False ] C:\folder\baz.cs
 #>
 
-  return $input | Where-Object {
-    !$_.PsIsContainer -and $_.Length -gt 2
-  } | Where-Object {
-    $contents = new-object byte[] 3
-    $stream = [System.IO.File]::OpenRead($_.FullName)
-    $stream.Read($contents, 0, 3) | Out-Null
-    $stream.Close()
-    $contents[0] -eq 0xEF -and $contents[1] -eq 0xBB -and $contents[2] -eq 0xBF 
-  }
+  if ($_.PsIsContainer -or $_.Length -lt 2 ) { return }
+
+  $Contents = new-object byte[] 3
+  $Stream = [System.IO.File]::OpenRead($_.FullName)
+  $Stream.Read($Contents, 0, 3) | Out-Null
+  $Stream.Close()
+  $Result = $Contents[0] -eq 0xEF -and $Contents[1] -eq 0xBB -and $Contents[2] -eq 0xBF
+  $WriteColor = [System.ConsoleColor]::Red; if ($Result) { $WriteColor = [System.ConsoleColor]::Green }
+  Write-Host -ForegroundColor $WriteColor -NoNewLine "[ $Result ] "; Write-Host $_
 }
