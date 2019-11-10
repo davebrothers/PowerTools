@@ -5,15 +5,11 @@ $PSDefaultParameterValues["Out-File:Encoding"] = "utf8"
 # From https://stackoverflow.com/questions/3492920/is-there-a-system-defined-environment-variable-for-documents-directory
 $env:DOCUMENTS = [Environment]::GetFolderPath("mydocuments")
 
-Function edit {
-  trap {
-    Write-Error "Could not open Code: $_"
-    return
-  }
-  & "code" -g @args
+function edit {
+  & code -g @args
 }
 
-Function Find-Content {
+function Find-Content {
   param(
     [Parameter(Mandatory = $true)]
     [string]$Pattern,
@@ -28,7 +24,7 @@ Function Find-Content {
   return Get-ChildItem | Where-Object { $_ | Select-String -Pattern $Pattern }
 }
 
-Function Find-File {
+function Find-File {
   param(
     [Parameter(Mandatory = $true)]
     [string]$Filter,
@@ -42,19 +38,19 @@ Function Find-File {
   return (Get-ChildItem -Filter *$Filter* -File)
 }
 
-Function Get-Directories {
+function Get-Directories {
   return Get-ChildItem -Attributes D
 }
 
-Function Invoke-Explorer {
+function Invoke-Explorer {
   explorer.exe .
 }
 
-Function open($file) {
-  Invoke-Item $file
+function open($Path) {
+  Invoke-Item $Path
 }
 
-Function Remove-Directory {
+function Remove-Directory {
   param(
     [Parameter(Mandatory = $true)]
     [string]$Path
@@ -79,7 +75,7 @@ Function Remove-Directory {
   return
 }
 
-Function Test-BOM {
+function Test-BOM {
   <#
 .SYNOPSIS
 Tests files in the pipeline for BOM.
@@ -89,7 +85,7 @@ gci | Test-BOM
 
 Mode                LastWriteTime         Length Name
 ----                -------------         ------ ----
--a----        10/21/2019  9:54 AM              3 i-have-bom
+-a----        10/21/2019  9:54 AM              3 only-i-have-bom
 #>
 
   return $input | Where-Object {
