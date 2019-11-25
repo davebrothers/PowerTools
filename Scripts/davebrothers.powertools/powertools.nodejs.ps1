@@ -64,12 +64,8 @@ Set-TslintPreferences -Path C:\git\repo\app\tslint.json
 
   # Enforce prefix if provided
   if (![string]::IsNullOrEmpty($Prefix)) {
-    if (!($tslintConfig.rules."directive-selector" -contains $Prefix)) {
-      $tslintConfig.rules."directive-selector" = @($true, "attriubute", "$Prefix", "camelCase")
-    }
-    if (!($tslintConfig.rules."component-selector" -contains $Prefix)) {
-      $tslintConfig.rules."component-selector" = @($true, "element", "$Prefix", "kebab-case")
-    }
+    $tslintConfig.rules | Add-Member -Name "directive-selector" -Value @($true, "attribute", "$Prefix", "camelCase") -MemberType NoteProperty
+    $tslintConfig.rules | Add-Member -Name "component-selector" -Value @($true, "element", "$Prefix", "kebab-case") -MemberType NoteProperty
   }
 
   $tslintConfig | ConvertTo-Json -Depth 10 | Set-Content $Path -Encoding utf8
