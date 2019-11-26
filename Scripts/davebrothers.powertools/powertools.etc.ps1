@@ -69,13 +69,11 @@ Name of the application for which the cert is being generated. Default is localh
     $(openssl exit)
   }
   catch { 
-    Write-Error "Could not find openssl."
-    return
+    throw [System.Exception] "Could not find openssl."
   }
 
   if (!$(Test-Path $Configuration)) {
-    Write-Error "Could not find Configuration file $Configuration."
-    return
+    throw [System.IO.FileNotFoundException] "Could not find Configuration file $Configuration."
   }
 
   # Request a new certificate and key using the required cnf file
@@ -121,8 +119,7 @@ Path to the certificate file. Default is ./certificate.p12.
 
   $CertPath = $(Join-Path $(Get-Location) $Name)
   if (!$(Test-Path $CertPath)) {
-    Write-Error "Could not find certificate at $CertPath."
-    return
+    throw [System.IO.FileNotFoundException] "Could not find certificate at $CertPath."
   }
 
   # Import the certificate to the current user
