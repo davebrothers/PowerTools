@@ -43,7 +43,7 @@ function Search-Bing {
   }
 }
 
-function New-PfxCertificate {
+function New-X509Certificate {
   <#
 .SYNOPSIS
 Using openssl (included with Git for Windows), creates a new P12 certificate for local web development.
@@ -81,27 +81,27 @@ Name of the application for which the cert is being generated. Default is localh
     -newkey rsa:2048 `
     -x509 `
     -nodes `
-    -keyout key.pem `
-    -out certificate.pem `
+    -keyout server.key `
+    -out server.crt `
     -config ./openssl-custom.cnf `
     -sha256 `
-    -days 365
+    -days 365 `
 
   # Review the new certificate
-  openssl x509 -text -noout -in certificate.pem
+  openssl x509 -text -noout -in server.crt
 
   # Combine key and cert into a p12 bundle with no password
-  openssl pkcs12 -export -name "ng serve $ApplicationName" -out certificate.p12 -in certificate.pem -inkey key.pem -passout pass:
+  # openssl pkcs12 -export -name "ng serve $ApplicationName" -out certificate.p12 -in server.crt -inkey server.key -passout pass:
 
   # Validate the new p12
-  openssl pkcs12 -in certificate.p12 -noout -info
+  # openssl pkcs12 -in certificate.p12 -noout -info
 
-  # Delete the x509 cert and key used to generate the pfx
-  Remove-Item certificate.pem
-  Remove-Item key.pem
+  # Delete the x509 cert used to generate the pfx
+  # Remove-Item server.crt
+  # Remove-Item key.pem
 }
 
-function Install-PfxCertificate {
+function Install-X509Certificate {
   <#
 .SYNOPSIS
 Using openssl (included with Git for Windows), creates a new P12 certificate for local web development.
@@ -123,5 +123,5 @@ Path to the certificate file. Default is ./certificate.p12.
   }
 
   # Import the certificate to the current user
-  certutil -user -f -importpfx $CertPath
+  certutil -addstore -user -f "Root" "$CertPath"
 }
