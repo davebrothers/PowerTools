@@ -25,7 +25,7 @@ Function Set-TsLintPreferences {
 Sets preferences for tslint.json as used by Angular.
 
 .DESCRIPTION
-Last updated for Angular CLI 7.3.4
+Last updated for Angular CLI 8.3.8
 
 .PARAMETER Path
 (Optional) The full path to the tslint.json file. Defaults to current directory.
