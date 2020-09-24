@@ -36,4 +36,8 @@ Function Get-RepositoryStatus {
       Pop-Location
       Write-Host "" 
     }
+
+  Function Remove-UnmergedBranches {
+    git branch | Select-String -Pattern "^[*]?", "^*master$", "^*main$" -NotMatch | ForEach-Object { git branch -d $_.ToString().Trim() }
+  }
 }
