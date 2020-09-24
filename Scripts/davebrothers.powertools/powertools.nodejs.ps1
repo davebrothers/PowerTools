@@ -59,9 +59,6 @@ Set-TslintPreferences -Path C:\git\repo\app\tslint.json
   # Configure disallowed console methods; includes non-standard APIs and swaps allowances of log/info
   $tslintConfig.rules."no-console" = @($true, "debug", "exception", "log", "profile", "profileEnd", "timeStamp", "trace")
 
-  # Prefer const declarations
-  $tslintConfig.rules."prefer-const" = $true
-
   # Enforce prefix if provided
   if (![string]::IsNullOrEmpty($Prefix)) {
     $tslintConfig.rules."directive-selector" = @($true, "attribute", "$Prefix", "camelCase")
