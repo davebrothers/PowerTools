@@ -6,11 +6,10 @@ $ScriptHome = "$(Join-Path $(Split-Path $PROFILE) Scripts)"
 # Dotsource davebrothers.powertools scripts
 gci $(Join-Path $ScriptHome "davebrothers.powertools") -Recurse | % {Unblock-File $_.FullName; . $_.FullName}
 
-if (Get-Module -ListAvailable | ? { $_.Name -eq "posh-git"}) {
-  Import-Module posh-git 
-} else {
+if (-Not (Get-Module -ListAvailable | ? { $_.Name -eq "posh-git"})) {
   Install-Module posh-git
 }
+Import-Module posh-git 
 
 function prompt {
     $realLASTEXITCODE = $LASTEXITCODE
