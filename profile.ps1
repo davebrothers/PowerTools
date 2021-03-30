@@ -14,11 +14,9 @@ if (Get-Module -ListAvailable | ? { $_.Name -eq "posh-git"}) {
 
 function prompt {
     $realLASTEXITCODE = $LASTEXITCODE
-    #$($env:username)@$($env:computername): 
     Write-Host "$(Split-Path -Leaf -Path (Get-Location))" -NoNewline
-    Write-VcsStatus
+    "$(Write-VcsStatus)> "
     $global:LASTEXITCODE = $realLASTEXITCODE
-    return "> "
 }
 
 # Aliases for my commands
