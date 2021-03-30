@@ -4,7 +4,7 @@ $ScriptHome = "$(Join-Path $(Split-Path $PROFILE) Scripts)"
 [Environment]::SetEnvironmentVariable("PATH", "$ScriptHome;" + [Environment]::GetEnvironmentVariable("PATH"))
 
 # Dotsource davebrothers.powertools scripts
-gci $(Join-Path $ScriptHome "davebrothers.powertools") -Recurse | Unblock-File
+gci $(Join-Path $ScriptHome "davebrothers.powertools") -Recurse | % {Unblock-File $_.FullName; . $_.FullName}
 
 if (Get-Module -ListAvailable | ? { $_.Name -eq "posh-git"}) {
   Import-Module posh-git 
